@@ -1,0 +1,4 @@
+project_id = "itbwwmivvefompjercfx"
+
+[functions.analyze-nutrition]
+verify_jwt = true
