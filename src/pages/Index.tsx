@@ -9,7 +9,6 @@ import { Scan, LogOut, User, Loader2, History, BarChart3 } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -105,7 +104,7 @@ const Index = () => {
           <div className="flex items-center gap-2">
             <Scan className="h-8 w-8 text-primary" />
             <h1 className="text-2xl font-bold bg-gradient-health bg-clip-text text-transparent">
-              Nutri.gram
+              nutri.gram
             </h1>
           </div>
           <div className="flex items-center gap-2">
@@ -118,7 +117,6 @@ const Index = () => {
             <Button variant="outline" size="icon" onClick={() => setShowProfile(!showProfile)} title="Profile">
               <User className="h-4 w-4" />
             </Button>
-            <ThemeToggle />
             <Button variant="outline" size="icon" onClick={handleSignOut} title="Sign Out">
               <LogOut className="h-4 w-4" />
             </Button>
