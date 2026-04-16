@@ -5,8 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import { Eye, EyeOff } from "lucide-react";
-import ThemeToggle from "@/components/ThemeToggle";
 
 interface AuthFormProps {
   onSuccess: () => void;
@@ -17,22 +15,9 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const isStrongPassword = (password: string) => {
-  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password);
-};
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!isLogin && !isStrongPassword(password)) {
-      toast.error(
-        "Password must be 8+ chars, include uppercase, lowercase, number & symbol"
-      );
-      return;
-    }
-
     setLoading(true);
 
     try {
@@ -64,11 +49,7 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
   };
 
   return (
-    
     <div className="w-full max-w-md space-y-6">
-       <div className="flex justify-end">
-  <ThemeToggle />
-</div>
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold bg-gradient-health bg-clip-text text-transparent">
           {isLogin ? "Welcome Back" : "Create Account"}
@@ -92,37 +73,17 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
         </div>
 
         <div className="space-y-2">
-  <Label htmlFor="password">Password</Label>
-
-  <div className="relative">
-    <Input
-      id="password"
-      type={showPassword ? "text" : "password"}
-      placeholder="••••••••"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      required
-      className="pr-10"
-    />
-
-    <button
-      type="button"
-      onClick={() => setShowPassword(!showPassword)}
-      className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-muted-foreground"
-    >
-    <span
-        className={`transition-transform duration-200 ${
-          showPassword ? "rotate-180 scale-110" : "rotate-0 scale-100"
-        }`}
-      >
-        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-      </span>
-    </button>
-  </div>
-  <p className="text-xs text-muted-foreground">
-    Must contain uppercase, lowercase, number & symbol
-  </p>
-</div>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={6}
+          />
+        </div>
 
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? (
